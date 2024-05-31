@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
@@ -13,7 +12,7 @@ namespace oop8
     /// <summary>
     /// Класс предоставляющий функционал для работы с дробями.
     /// </summary>
-    internal class Fraction : Complex
+    internal class Fraction : IComparable, ICloneable, IFormattable
     {
 
         /// <summary>
@@ -369,23 +368,13 @@ namespace oop8
         /// <summary>
         /// Приводит число типа int к дроби.
         /// </summary>
-        /// <param name="arg">Число int</param>
+        /// <param name="arg">Число</param>
         public static implicit operator Fraction(int arg)
         {
             return new Fraction(arg);
         }
 
         /// <summary>
-        /// Приводит число типа double к дроби.
-        /// </summary>
-        /// <param name="arg">Число double</param>
-        public static implicit operator Fraction(double arg)
-        {
-            return new Fraction((int)arg);
-        }
-
-        /// <summary>
-        /// Интерфейс, член абстрактного класса.
         /// Преобразует дробь в строку.
         /// </summary>
         /// <returns>Строковое представление дроби.</returns>
@@ -415,13 +404,13 @@ namespace oop8
         }
 
         /// <summary>
-        /// Интерфейс, член абстрактного класса.
+        /// Интерфейс.
         /// Сравнивает дробь с переданным объектом. Выдаёт исключение если переданный объект не типа Fraction, int или double.
         /// </summary>
         /// <param name="obj">Должен быть дробью, числом типа int или double</param>
         /// <returns></returns>
         /// <exception cref="ArgumentException"></exception>
-        public override int CompareTo(object obj)
+        public int CompareTo(object obj)
         {
             if(obj is Fraction || obj is double)
             {
@@ -460,11 +449,11 @@ namespace oop8
         }
 
         /// <summary>
-        /// Интерфейс, член абстрактного класса.
+        /// Интерфейс.
         /// Копирует дробь.
         /// </summary>
         /// <returns>Копия объекта.</returns>
-        public override object Clone()
+        public object Clone()
         {
             Fraction Result = new Fraction(IntPart, Num, Denum, Cutting);
 
@@ -484,13 +473,13 @@ namespace oop8
         }
 
         /// <summary>
-        /// Интерфейс, член абстрактного класса. Выводит строковое представление дроби в нужном формате.
+        /// Интерфейс. Выводит строковое представление дроби в нужном формате.
         /// </summary>
         /// <param name="format"></param>
         /// <param name="formatProvider"></param>
         /// <returns></returns>
         /// <exception cref="FormatException"></exception>
-        public override string ToString(string format, IFormatProvider formatProvider)
+        public string ToString(string format, IFormatProvider formatProvider)
         {
 
             if (string.IsNullOrWhiteSpace(format))
@@ -522,16 +511,6 @@ namespace oop8
 
             }
 
-        }
-
-        /// <summary>
-        /// Интерфейс, член абстрактного класса. Не реализуется в данном классе.
-        /// </summary>
-        /// <returns></returns>
-        /// <exception cref="NotImplementedException"></exception>
-        public override IEnumerator GetEnumerator()
-        {
-            throw new NotImplementedException();
         }
     }
 }

@@ -113,7 +113,7 @@ namespace oop8
     /// <summary>
     /// Класс предоставляющий функционал для работы с полиномами.
     /// </summary>
-    internal class Polinom: Complex
+    internal class Polinom: IEnumerable, ICloneable, IComparable, IFormattable
     {
 
         /// <summary>
@@ -509,30 +509,6 @@ namespace oop8
 
             }
         }
-
-
-
-        public static implicit operator Polinom(int x)
-        {
-            double[] mass = { (double)x };
-
-            return new Polinom(0, 1, mass); 
-        }
-
-        public static implicit operator Polinom(double x)
-        {
-            double[] mass = { x };
-
-            return new Polinom(0, 1, mass);
-        }
-
-        public static implicit operator Polinom(Fraction x)
-        {
-            double[] mass = { x };
-
-            return new Polinom(0, 1, mass);
-        }
-
 
 
         /// <summary>
@@ -1140,7 +1116,6 @@ namespace oop8
         }
 
         /// <summary>
-        /// Интерфейс, член абстрактного класса.
         /// Создаёт строковое представление полинома.
         /// </summary>
         /// <returns>Строковое представление полинома.</returns>
@@ -1179,11 +1154,10 @@ namespace oop8
         }
 
         /// <summary>
-        /// Интерфейс, член абстрактного класса.
         /// Предоставляет интерфейс для перебора коллекции Polinom.
         /// </summary>
         /// <returns></returns>
-        public override IEnumerator GetEnumerator()
+        public IEnumerator GetEnumerator()
         {
             List<PolinomMember> polinomMembers = new List<PolinomMember>();
             
@@ -1199,11 +1173,10 @@ namespace oop8
         }
 
         /// <summary>
-        /// Интерфейс, член абстрактного класса.
         /// Копирует полином.
         /// </summary>
         /// <returns></returns>
-        public override object Clone()
+        public object Clone()
         {
             Polinom ClonePolinom = new Polinom(this);
 
@@ -1211,13 +1184,12 @@ namespace oop8
         }
 
         /// <summary>
-        /// Интерфейс, член абстрактного класса.
         /// Сравнивает объект Polinom с переданныи объектом. (Выдаёт исключение ArgumentException если переданный объект не Polinom)
         /// </summary>
         /// <param name="obj">Polinom</param>
         /// <returns>0 если объекты равны, 1 если переданный объект больше текущего, -1 если переданный объект меньше текущего.</returns>
         /// <exception cref="ArgumentException"></exception>
-        public override int CompareTo(object obj)
+        public int CompareTo(object obj)
         {
             if(obj is Polinom p)
             {
@@ -1276,13 +1248,13 @@ namespace oop8
         }
 
         /// <summary>
-        /// Интерфейс, член абстрактного класса. Выводит строковое представление полинома в нужном формате.
+        /// Интерфейс. Выводит строковое представление полинома в нужном формате.
         /// </summary>
         /// <param name="format"></param>
         /// <param name="formatProvider"></param>
         /// <returns></returns>
         /// <exception cref="FormatException"></exception>
-        public override string ToString(string format, IFormatProvider formatProvider)
+        public string ToString(string format, IFormatProvider formatProvider)
         {
 
             if (string.IsNullOrWhiteSpace(format))
